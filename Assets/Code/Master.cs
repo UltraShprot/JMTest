@@ -7,8 +7,11 @@ namespace JustMobyTest
 {
     public class Master : MonoBehaviour
     {
-        [SerializeField] private BuyPanelView _buyPanel;
         [SerializeField] private InputField _inputField;
+
+        [SerializeField] private BuyPanelView _view;
+        private BuyPanelController _controller;
+        private BuyPanelModel _model;
 
         List<(string, int)> items = new List<(string, int)>()
         {
@@ -22,6 +25,9 @@ namespace JustMobyTest
             ("Bullets", 30)
         };
         List<(string, int)> itemsNew = new List<(string, int)>();
+
+
+
         public void PanelActive()
         {
             int itemsCount = Convert.ToInt32(_inputField.text);
@@ -33,8 +39,9 @@ namespace JustMobyTest
                     catch { itemsNew.Add(items[items.Count - 1]); }
                 }
             }
-            _buyPanel.itemNameAndCount = itemsNew;
-            _buyPanel.gameObject.SetActive(true);
+            _model = new BuyPanelModel("Название", itemsNew, "Описание", 15.99f, 15, "Monster");
+            _controller= new BuyPanelController(_view, _model);
+            _view.gameObject.SetActive(true);
 
         } 
         

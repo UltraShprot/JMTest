@@ -594,17 +594,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1a8ee806b47d74bb56ef11ec772744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 19.99
-  discount: 50
   discountText: {fileID: 622528514}
   discountPrice: {fileID: 784907096}
   withoutDiscountPrice: {fileID: 1717262443}
   discountObject: {fileID: 597777671}
-  headerText: "\u0420\u0435\u0441\u0443\u0440\u0441\u044B"
-  descriptionText: "\u0420\u0435\u0441\u0443\u0440\u0441\u044B \u0434\u043B\u044F
-    \u0442\u043E\u0433\u043E, \u0447\u0442\u043E\u0431\u044B \u0447\u0442\u043E-\u0442\u043E
-    \u0441\u0434\u0435\u043B\u0430\u0442\u044C!"
-  mainImageName: Monster
   transformItems: {fileID: 2145831500}
   header: {fileID: 97064148}
   description: {fileID: 1887261837}
@@ -745,8 +738,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbd94dbfc3d4db4fb2cc1be47c407b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buyPanel: {fileID: 277665122}
   _inputField: {fileID: 419486764}
+  _view: {fileID: 277665122}
 --- !u!1 &419486762
 GameObject:
   m_ObjectHideFlags: 0

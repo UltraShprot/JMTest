@@ -6,8 +6,12 @@ using UnityEngine.UIElements;
 
 namespace JustMobyTest
 {
-    public class BuyPanelModel: PanelModel
+    // Хранит в себе данные о модели и корректирует эти данные при изменении
+    public class BuyPanelModel
     {
+        public string HeaderText { get; set; }
+        public string DescriptionText { get; set; }
+        public string MainImageName { get; set; }
         public float ActualPrice { get; set; }
         private List<(string,int)> itemsNameAndCount = new List<(string,int)>();
         public List<(string, int)> ItemsNameAndCount 
@@ -70,9 +74,7 @@ namespace JustMobyTest
             }
         }
 
-        public RectTransform TransformItems { get; set; }
-
-        public BuyPanelModel(string headerText, List<(string, int)> itemsNameAndCount, string descriptionText, float price, float discount, string mainImageName, RectTransform transformItems)
+        public BuyPanelModel(string headerText, List<(string, int)> itemsNameAndCount, string descriptionText, float price, float discount, string mainImageName)
         {
             HeaderText = headerText;
             DescriptionText = descriptionText;
@@ -80,7 +82,6 @@ namespace JustMobyTest
             Price = price;
             Discount = discount;
             MainImageName = mainImageName;
-            TransformItems = transformItems;
         }
 
     }

@@ -1,14 +1,19 @@
 ﻿using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace JustMobyTest
 {
-    public class BuyPanelController : BuyableController
+    // Здесь происходит основная логика панели покупки
+    public class BuyPanelController
     {
         private BuyPanelView view;
         private BuyPanelModel model;
+
+        protected List<(string, int)> buyingItems = new List<(string, int)>();
 
         public BuyPanelController(BuyPanelView view, BuyPanelModel model)
         {
@@ -22,7 +27,7 @@ namespace JustMobyTest
             view.header.text = model.HeaderText;
             view.description.text = model.DescriptionText;
             view.mainImage.sprite = FindIcon(model.MainImageName);
-            float newPrice = new DiscountSetter().SetDiscount(model.Price, model.Discount, view);
+            float newPrice = SetDiscount(model.Price, model.Discount, view);
             if (newPrice != 0)
             {
                 model.ActualPrice= newPrice;
@@ -35,18 +40,6 @@ namespace JustMobyTest
             AddItems();
             
         }
-        private Sprite FindIcon(string nameIcon)
-        {
-            var icons = Resources.LoadAll<IconInfo>("Info");
-            foreach (var icon in icons)
-            {
-                if (icon.Name == nameIcon)
-                {
-                    return icon.Icon;
-                }
-            }
-            return null;
-        }
         private void AddItems()
         {
             int x = 0;
@@ -57,7 +50,7 @@ namespace JustMobyTest
             for (int i = 0; i < minCount; i++) 
             {
                 view.itemsGameObject[i].SetActive(true);
-                view.itemsGameObject[i].GetComponent<RectTransform>().localPosition = new Vector2(model.TransformItems.anchoredPosition.x + x, model.TransformItems.anchoredPosition.y - y);
+                view.itemsGameObject[i].GetComponent<RectTransform>().localPosition = new Vector2(view.transformItems.anchoredPosition.x + x, view.transformItems.anchoredPosition.y - y);
 
                 view.itemsImage[i].sprite = FindIcon(model.ItemsNameAndCount[i].Item1);
 
@@ -84,7 +77,51 @@ namespace JustMobyTest
             }
             
         }
-        public override void Buy()
+        private float SetDiscount(float price, float discount, BuyPanelView view)
+        {
+            if (price != 0)
+            {
+                if (discount != 0 && discount != 100)
+                {
+                    view.discountText.text = "-" + discount.ToString() + "%";
+                    view.withoutDiscountPrice.text = "$" + price.ToString();
+                    price = price / 100 * (100 - discount);
+                    price = (float)Math.Round(price, 2);
+                    return price;
+                }
+                else if (discount == 100)
+                {
+                    view.discountText.text = "-" + discount.ToString() + "%";
+                    view.withoutDiscountPrice.text = "$" + price.ToString();
+                    return 0;
+                }
+                else
+                {
+                    view.withoutDiscountPrice.text = "";
+                    view.discountObject.SetActive(false);
+                    return price;
+                }
+            }
+            else
+            {
+                view.withoutDiscountPrice.text = "";
+                view.discountObject.SetActive(false);
+                return price;
+            }
+        }
+        private Sprite FindIcon(string nameIcon)
+        {
+            var icons = Resources.LoadAll<IconInfo>("Info");
+            foreach (var icon in icons)
+            {
+                if (icon.Name == nameIcon)
+                {
+                    return icon.Icon;
+                }
+            }
+            return null;
+        }
+        private void Buy()
         {
             // Тут логика покупки
             // if (bank.balance >= model.ActualPrice) 

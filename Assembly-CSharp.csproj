@@ -57,12 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\BuyPanelView.cs" />
-    <Compile Include="Assets\Code\BuyableController.cs" />
-    <Compile Include="Assets\Code\DiscountableView.cs" />
     <Compile Include="Assets\Code\BuyPanelController.cs" />
-    <Compile Include="Assets\Code\DiscountSetter.cs" />
     <Compile Include="Assets\Code\Master.cs" />
-    <Compile Include="Assets\Code\PanelModel.cs" />
     <Compile Include="Assets\Code\BuyPanelModel.cs" />
     <Compile Include="Assets\Code\IconInfo.cs" />
   </ItemGroup>
